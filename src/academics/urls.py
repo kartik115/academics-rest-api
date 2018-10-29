@@ -11,6 +11,8 @@ urlpatterns = [
     url(r'^user-roles/$', user_roles),
     url(r'^user-profile/$', user_profile),
     url(r'^courses/$', course),
+    url(r'^session/$', academic_session),
+    url(r'^session-course/$', AcademicSessionCourseView.as_view()),
     url(r'^', include(router.urls)),
 ]
 

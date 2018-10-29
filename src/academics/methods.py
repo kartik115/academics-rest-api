@@ -34,7 +34,7 @@ def professor_profile(data, user_id):
 
 
 def add_course(data):
-    course_serializer = CourseSerializers(data=data)
+    course_serializer = CourseSerializer(data=data)
     course_serializer.is_valid(raise_exception=True)
     course = course_serializer.save()
     return course_serializer.data

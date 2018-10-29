@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import *
+from rest_framework.views import APIView
 from django_filters.rest_framework import DjangoFilterBackend
 from .methods import *
 from rest_framework.decorators import api_view, permission_classes
@@ -60,3 +61,27 @@ class CourseGradingViewSet(viewsets.ModelViewSet):
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ('course',)
 
+
+class AcademicSessionCourseView(APIView):
+
+    def get(self, request, format=None):
+        courses = AcademicSessionCourses.objects.all()
+        serializer = AcademicSessionCourseSerializer(courses, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = AcademicSessionCourseSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'POST'])
+def academic_session(request):
+    if request.method == 'POST':
+        serializer = AcademicSessionSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

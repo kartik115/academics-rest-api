@@ -48,3 +48,15 @@ class CourseGradingSerializer(serializers.ModelSerializer):
     class Meta:
         model = CourseGrading
         fields = '__all__'
+
+
+class AcademicSessionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AcademicSession
+        fields = '__all__'
+
+
+class AcademicSessionCourseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AcademicSessionCourses
+        fields = '__all__'
